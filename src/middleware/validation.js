@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const validateUser = (req, res, next) => {
+export const validateUser = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
@@ -16,11 +16,11 @@ const validateUser = (req, res, next) => {
   next();
 };
 
-const validatePatient = (req, res, next) => {
+export const validatePatient = (req, res, next) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     dateOfBirth: Joi.date().required(),
-    gender: Joi.string.valid("male", "female", "other").required(),
+    gender: Joi.string().valid("male", "female", "other").required(),
     contactNumber: Joi.string().required(),
     address: Joi.string().required(),
     assignedDoctor: Joi.string().required(),
@@ -34,7 +34,4 @@ const validatePatient = (req, res, next) => {
   next();
 };
 
-export default {
-  validateUser,
-  validatePatient,
-};
+

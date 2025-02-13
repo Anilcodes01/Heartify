@@ -4,7 +4,7 @@ const heartRateSchema = new mongoose.Schema(
   {
     patient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Patient",
       required: true,
     },
     rate: {
@@ -23,6 +23,4 @@ const heartRateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const HeartRate = mongoose.model("HeartRate", heartRateSchema);
-
-export default HeartRate;
+export const HeartRate = mongoose.model("HeartRate", heartRateSchema);

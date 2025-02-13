@@ -1,4 +1,4 @@
-import Patient from "../models/Patient";
+import {Patient} from "../models/Patient.js";
 
 export const patientController = {
   async addPatient(req, res) {
@@ -12,6 +12,7 @@ export const patientController = {
     } catch (error) {
       res.status(500).json({
         error: "Failed to add patient...!",
+        error: error.message
       });
     }
   },

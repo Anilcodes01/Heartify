@@ -1,13 +1,27 @@
-import HeartRate from "../models/HeartRate";
+import { HeartRate } from "../models/HeartRate.js";
+import { Patient } from "../models/Patient.js";
+import { User } from "../models/User.js";
 
 export const heartRateController = {
   async recordHeartRate(req, res) {
     try {
+      const { patientId, rate, userId, notes } = req.body;
+      const patientExists = await Patient.findById(patientId);
+      const userExists = await User.findById(userId);
+
+      if (!patientExists) {
+        return res.status(400).json({ error: "Invalid patient ID" });
+      }
+
+      if (!userExists) {
+        return res.status(400).json({ error: "Invalid user ID" });
+      }
+
       const heartRate = new HeartRate({
-        patient: req.body.patientId,
-        rate: req.body.rate,
-        recordedBy: req.body.userId,
-        notes: req.body.notes,
+        patient: patientId,
+        rate,
+        recordedBy: userId,
+        notes,
       });
 
       await heartRate.save();
